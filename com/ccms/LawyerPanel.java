@@ -9,7 +9,7 @@ import java.util.Vector;
 public class LawyerPanel extends JPanel {
     private final User currentUser;
 
-    // form
+    
     private final JTextField nameField   = new JTextField(24);
     private final JTextField firmField   = new JTextField(24);
     private final JTextField licenseField= new JTextField(24);
@@ -20,7 +20,7 @@ public class LawyerPanel extends JPanel {
     private final JButton clearBtn   = new JButton("Clear");
     private final JButton refreshBtn = new JButton("Refresh");
 
-    // table
+    
     private final DefaultTableModel tableModel = new DefaultTableModel(
             new Object[]{"ID","Name","Firm","License No","Created At"}, 0) {
         @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -34,7 +34,7 @@ public class LawyerPanel extends JPanel {
         setLayout(new BorderLayout(10,10));
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // ----- form -----
+        
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -61,12 +61,12 @@ public class LawyerPanel extends JPanel {
 
         add(form, BorderLayout.NORTH);
 
-        // ----- table -----
+        
         table.setFillsViewportHeight(true);
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // actions
+        
         saveBtn.addActionListener(e -> save());
         updateBtn.addActionListener(e -> update());
         deleteBtn.addActionListener(e -> deleteSelected());
@@ -74,7 +74,7 @@ public class LawyerPanel extends JPanel {
         refreshBtn.addActionListener(e -> loadAll());
         table.getSelectionModel().addListSelectionListener(e -> onRowSelected());
 
-        // load
+        
         loadAll();
     }
 

@@ -12,7 +12,7 @@ public class HearingPanel extends JPanel {
     private final User currentUser;
 
     private final JComboBox<ComboItem> caseCombo   = new JComboBox<>();
-    private final JTextField dateTimeField         = new JTextField(16); // YYYY-MM-DD HH:mm
+    private final JTextField dateTimeField         = new JTextField(16);
     private final JTextField roomField             = new JTextField(16);
     private final JComboBox<ComboItem> judgeCombo  = new JComboBox<>();
     private final JTextField purposeField          = new JTextField(24);
@@ -171,7 +171,6 @@ public class HearingPanel extends JPanel {
     private void clearForm() {
         selectedId = null;
         if (caseCombo.getItemCount() > 0) caseCombo.setSelectedIndex(0);
-        // default to now (YYYY-MM-DD HH:mm)
         dateTimeField.setText(java.time.LocalDateTime.now().format(DT));
         roomField.setText("");
         if (judgeCombo.getItemCount() > 0) judgeCombo.setSelectedIndex(0);

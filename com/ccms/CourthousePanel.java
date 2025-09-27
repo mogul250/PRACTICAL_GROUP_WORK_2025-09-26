@@ -9,7 +9,6 @@ import java.util.Vector;
 public class CourthousePanel extends JPanel {
     private final User currentUser;
 
-    // Form controls
     private final JTextField nameField     = new JTextField(24);
     private final JTextField locationField = new JTextField(24);
     private final JComboBox<String> typeCombo =
@@ -20,15 +19,12 @@ public class CourthousePanel extends JPanel {
     private final JButton deleteBtn  = new JButton("Delete");
     private final JButton clearBtn   = new JButton("Clear");
     private final JButton refreshBtn = new JButton("Refresh");
-
-    // Table
     private final DefaultTableModel tableModel = new DefaultTableModel(
             new Object[]{"ID", "Name", "Location", "Type", "Created At"}, 0) {
         @Override public boolean isCellEditable(int r, int c) { return false; }
     };
     private final JTable table = new JTable(tableModel);
 
-    // Currently selected record ID (null if none)
     private Long selectedId = null;
 
     public CourthousePanel(User currentUser) {
@@ -36,7 +32,6 @@ public class CourthousePanel extends JPanel {
         setLayout(new BorderLayout(10,10));
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // ---------- Form ----------
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -63,12 +58,10 @@ public class CourthousePanel extends JPanel {
 
         add(form, BorderLayout.NORTH);
 
-        // ---------- Table ----------
         table.setFillsViewportHeight(true);
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // Actions
         saveBtn.addActionListener(e -> save());
         updateBtn.addActionListener(e -> update());
         deleteBtn.addActionListener(e -> deleteSelected());
@@ -76,7 +69,6 @@ public class CourthousePanel extends JPanel {
         refreshBtn.addActionListener(e -> loadAll());
         table.getSelectionModel().addListSelectionListener(e -> onRowSelected());
 
-        // Initial load
         loadAll();
     }
 
@@ -173,7 +165,6 @@ public class CourthousePanel extends JPanel {
             clearForm();
             loadAll();
         } catch (SQLException ex) {
-            // If FK constraint blocks it (e.g., judges/cases reference it)
             JOptionPane.showMessageDialog(this,
                     "Cannot delete: it's referenced by other records.\n" + ex.getMessage(),
                     "Delete failed", JOptionPane.ERROR_MESSAGE);

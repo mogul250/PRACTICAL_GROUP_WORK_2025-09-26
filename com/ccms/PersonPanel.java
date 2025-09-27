@@ -33,7 +33,7 @@ public class PersonPanel extends JPanel {
         setLayout(new BorderLayout(10,10));
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // form
+        
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -63,12 +63,12 @@ public class PersonPanel extends JPanel {
 
         add(form, BorderLayout.NORTH);
 
-        // table
+        
         table.setFillsViewportHeight(true);
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // actions
+        
         saveBtn.addActionListener(e -> save());
         updateBtn.addActionListener(e -> update());
         deleteBtn.addActionListener(e -> deleteSelected());

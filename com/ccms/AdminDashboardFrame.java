@@ -15,15 +15,11 @@ public class AdminDashboardFrame extends JFrame {
         setSize(900, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
-        // Top bar
         JPanel top = new JPanel(new BorderLayout());
         top.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
         top.add(new JLabel("Logged in as: " + currentUser.getFullName() + "  [" + currentUser.getRole() + "]"),
                 BorderLayout.WEST);
         add(top, BorderLayout.NORTH);
-
-        // Tabs (each tab is a JPanel)
         tabs.addTab("Courthouse", new CourthousePanel(currentUser));
         tabs.addTab("Judge",      new JudgePanel(currentUser));
         tabs.addTab("Lawyer",     new LawyerPanel(currentUser));

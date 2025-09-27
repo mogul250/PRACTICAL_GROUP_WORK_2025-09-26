@@ -32,7 +32,7 @@ public class JudgePanel extends JPanel {
         setLayout(new BorderLayout(10,10));
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // form
+        
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -59,12 +59,12 @@ public class JudgePanel extends JPanel {
 
         add(form, BorderLayout.NORTH);
 
-        // table
+        
         table.setFillsViewportHeight(true);
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // actions
+        
         saveBtn.addActionListener(e -> save());
         updateBtn.addActionListener(e -> update());
         deleteBtn.addActionListener(e -> deleteSelected());
@@ -81,7 +81,6 @@ public class JudgePanel extends JPanel {
         int r = table.getSelectedRow();
         selectedId = (Long) tableModel.getValueAt(r, 0);
 
-        // safer: re-read full record including courthouse_id
         String sql = "SELECT full_name, specialization, courthouse_id FROM judge WHERE judge_id=?";
         try (Connection con = Database.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -105,7 +104,6 @@ public class JudgePanel extends JPanel {
                 return;
             }
         }
-        // if not found, pick none
         courthouseCombo.setSelectedIndex(0);
     }
 

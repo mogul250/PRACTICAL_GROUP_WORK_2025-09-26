@@ -15,7 +15,6 @@ public class Database {
         try (Connection con = getConnection();
              Statement st = con.createStatement()) {
 
-            // Create user table
             st.execute("""
                 CREATE TABLE IF NOT EXISTS user_account (
                   user_id       INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -27,11 +26,9 @@ public class Database {
                   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
             """);
-
-            // Bootstrap an ADMIN if none exists
             if (!adminExists(con)) {
                 String defaultEmail = "admin@ccms.com";
-                String defaultPass  = "123456"; // change after first login
+                String defaultPass  = "123456";
                 String hash = PasswordUtil.hash(defaultPass);
 
                 try (PreparedStatement ps = con.prepareStatement(

@@ -9,7 +9,7 @@ import java.util.Vector;
 public class RepresentationDialog extends JDialog {
     private final long caseId;
 
-    private final JComboBox<ComboItem> personCombo = new JComboBox<>(); // client (should be among case parties)
+    private final JComboBox<ComboItem> personCombo = new JComboBox<>();
     private final JComboBox<ComboItem> lawyerCombo = new JComboBox<>();
     private final JComboBox<String> sideCombo = new JComboBox<>(new String[]{"PLAINTIFF","DEFENDANT","NEUTRAL"});
     private final JCheckBox primaryCheck = new JCheckBox("Primary");
@@ -26,7 +26,7 @@ public class RepresentationDialog extends JDialog {
     };
     private final JTable table = new JTable(tableModel);
 
-    private Long selectedId = null; // representation_id
+    private Long selectedId = null;
 
     public RepresentationDialog(Window owner, long caseId) {
         super(owner, "Manage Representation for Case #" + caseId, ModalityType.APPLICATION_MODAL);
@@ -36,7 +36,6 @@ public class RepresentationDialog extends JDialog {
         setLayout(new BorderLayout(8,8));
         ((JComponent)getContentPane()).setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // top form
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -59,11 +58,11 @@ public class RepresentationDialog extends JDialog {
 
         add(form, BorderLayout.NORTH);
 
-        // table
+        
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // actions
+        
         addBtn.addActionListener(e -> addRep());
         updateBtn.addActionListener(e -> updateRep());
         deleteBtn.addActionListener(e -> deleteRep());
@@ -71,7 +70,7 @@ public class RepresentationDialog extends JDialog {
         closeBtn.addActionListener(e -> dispose());
         table.getSelectionModel().addListSelectionListener(e -> onRowSelected());
 
-        loadPersonChoices(); // only people already added to this case (via case_person)
+        loadPersonChoices();
         loadLawyerChoices();
         loadReps();
     }

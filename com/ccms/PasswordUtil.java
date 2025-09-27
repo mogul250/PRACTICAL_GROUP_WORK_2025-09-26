@@ -7,17 +7,15 @@ import java.util.Base64;
 import java.util.Objects;
 
 public class PasswordUtil {
-    // Reasonable modern defaults for desktop apps
-    private static final int ITERATIONS = 120_000; // ~100k+ is recommended
-    private static final int KEY_LENGTH = 256;     // bits
-    private static final int SALT_LEN = 16;        // bytes
+    private static final int ITERATIONS = 120_000; 
+    private static final int KEY_LENGTH = 256;    
+    private static final int SALT_LEN = 16;       
 
     public static String hash(String rawPassword) {
         Objects.requireNonNull(rawPassword, "password");
         byte[] salt = new byte[SALT_LEN];
         new SecureRandom().nextBytes(salt);
         byte[] dk = pbkdf2(rawPassword.toCharArray(), salt, ITERATIONS, KEY_LENGTH);
-        // Store as: PBKDF2$<iter>$<saltB64>$<dkB64>
         return "PBKDF2$" + ITERATIONS + "$" +
                Base64.getEncoder().encodeToString(salt) + "$" +
                Base64.getEncoder().encodeToString(dk);

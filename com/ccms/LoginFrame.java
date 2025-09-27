@@ -12,7 +12,7 @@ public class LoginFrame extends JFrame {
         super("CCMS - Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(380, 200);
-        setLocationRelativeTo(null); // center
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
         JPanel form = new JPanel(new GridLayout(3, 2, 8, 8));
@@ -27,7 +27,7 @@ public class LoginFrame extends JFrame {
         add(form, BorderLayout.CENTER);
 
         loginBtn.addActionListener(e -> doLogin());
-        getRootPane().setDefaultButton(loginBtn); // Enter key triggers login
+        // getRootPane().setDefaultButton(loginBtn);
     }
 
     private void doLogin() {
@@ -50,7 +50,6 @@ public class LoginFrame extends JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Welcome, " + user.getFullName() + " (" + user.getRole() + ")");
-        // open dashboard
         AdminDashboardFrame dash = new AdminDashboardFrame(user);
         dash.setVisible(true);
         this.dispose();

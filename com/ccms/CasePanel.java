@@ -10,13 +10,11 @@ import java.util.Vector;
 
 public class CasePanel extends JPanel {
     private final User currentUser;
-
-    // form controls
     private final JTextField caseNumberField = new JTextField(20);
     private final JTextField titleField      = new JTextField(28);
     private final JComboBox<String> statusCombo =
             new JComboBox<>(new String[]{"FILED","ACTIVE","STAYED","CLOSED","APPEALED"});
-    private final JTextField filedDateField  = new JTextField(12); // YYYY-MM-DD
+    private final JTextField filedDateField  = new JTextField(12);
     private final JComboBox<ComboItem> courthouseCombo = new JComboBox<>();
     private final JComboBox<ComboItem> judgeCombo      = new JComboBox<>();
 
@@ -41,8 +39,6 @@ public class CasePanel extends JPanel {
         this.currentUser = currentUser;
         setLayout(new BorderLayout(10,10));
         setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-
-        // form
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -75,12 +71,9 @@ public class CasePanel extends JPanel {
 
         add(form, BorderLayout.NORTH);
 
-        // table
         table.setFillsViewportHeight(true);
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
-
-        // actions
         saveBtn.addActionListener(e -> save());
         updateBtn.addActionListener(e -> update());
         deleteBtn.addActionListener(e -> deleteSelected());
@@ -101,7 +94,7 @@ public class CasePanel extends JPanel {
         return;
     }
     new CasePeopleDialog(SwingUtilities.getWindowAncestor(this), selectedId).setVisible(true);
-    loadAll(); // refresh table after dialog closes
+    loadAll();
     }
 
     private void openReprDialog() {
@@ -147,7 +140,6 @@ public class CasePanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Case #, Title, Filed date are required.", "Validation",
                     JOptionPane.WARNING_MESSAGE); return;
         }
-        // validate date
         try { LocalDate.parse(fd, D); } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Filed date must be YYYY-MM-DD.", "Validation", JOptionPane.WARNING_MESSAGE);
             return;
@@ -183,7 +175,6 @@ public class CasePanel extends JPanel {
         caseNumberField.setText("");
         titleField.setText("");
         statusCombo.setSelectedIndex(0);
-        // default to today
         filedDateField.setText(java.time.LocalDate.now().toString());
         if (courthouseCombo.getItemCount() > 0) courthouseCombo.setSelectedIndex(0);
         if (judgeCombo.getItemCount() > 0) judgeCombo.setSelectedIndex(0);
@@ -290,7 +281,6 @@ public class CasePanel extends JPanel {
         int r = table.getSelectedRow();
         selectedId = (Long) tableModel.getValueAt(r, 0);
 
-        // re-read full record for FK ids
         String sql = "SELECT case_number,title,status,filed_date,courthouse_id,assigned_judge_id FROM court_case WHERE case_id=?";
         try (Connection con = Database.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

@@ -26,7 +26,7 @@ public class CasePeopleDialog extends JDialog {
     };
     private final JTable table = new JTable(tableModel);
 
-    private Long selectedId = null; // case_person_id
+    private Long selectedId = null;
 
     public CasePeopleDialog(Window owner, long caseId) {
         super(owner, "Manage Parties for Case #" + caseId, ModalityType.APPLICATION_MODAL);
@@ -36,7 +36,6 @@ public class CasePeopleDialog extends JDialog {
         setLayout(new BorderLayout(8,8));
         ((JComponent)getContentPane()).setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // Top form
         JPanel form = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.insets = new Insets(4,4,4,4);
@@ -54,11 +53,9 @@ public class CasePeopleDialog extends JDialog {
 
         add(form, BorderLayout.NORTH);
 
-        // Table
         table.setRowHeight(22);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // actions
         addBtn.addActionListener(e -> addParty());
         updateBtn.addActionListener(e -> updateParty());
         deleteBtn.addActionListener(e -> deleteParty());
@@ -175,7 +172,7 @@ public class CasePeopleDialog extends JDialog {
         String personName = (String) tableModel.getValueAt(r, 1);
         String role = (String) tableModel.getValueAt(r, 2);
 
-        // select combo items
+        
         selectPersonByLabel(personName);
         roleCombo.setSelectedItem(role);
     }
